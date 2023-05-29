@@ -41,9 +41,14 @@ function Utilities:isPointVisible(targetForWallCheck)
     return #result <= 1
 end
 
+function Utilities:isTeammate(player)
+    return LocalPlayer.Team == player.Team
+end
+
 function Utilities:getClosestPlayer(FOV, Bones) 
     for _, v in next, game.Players:GetPlayers() do
         if v == LocalPlayer then continue end
+        if Utilities:isTeammate(v) then continue end
         if not v.Character then continue end
         if not v.Character:FindFirstChild("HumanoidRootPart") then continue end
         if not v.Character:FindFirstChild("Humanoid") then continue end
@@ -71,7 +76,7 @@ Utilities.Settings = {
     Aimbot = {
         Enabled = false,
         FOV = 180,
-        Color = Color3.new(0,0,0),
+        Color = Color3.new(255, 0, 0),
         Part = {"Head"}
     }
 }
